@@ -1,0 +1,13 @@
+Give the run time for each of these scenarios in terms of Big O.
+
+1. You have a name, and you want to find the person’s phone number in the phone book.
+O(log n). As we can do a binary search here. 
+
+2. You have a phone number, and you want to find the person’s name in the phone book.
+O(n). As we have to search through every entry in the phonebook.
+
+3. You want to read the numbers of every person in the phone book.
+O(n).
+
+4. You want to read the numbers of just the As. 
+O(n)
