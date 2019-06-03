@@ -1,0 +1,27 @@
+Ans 2.1
+=============================================
+Since it involves few reads and lots of insertions we should 
+use LinkedList in this case. For LinkedList insert operation
+is O(1) and read operation is O(n).
+
+Ans 2.2
+=============================================
+LinkedList as insertion/deletion(from the front) is faster.
+
+Ans 2.3
+=============================================
+Array as it involves lots of read operations. Read operation 
+is faster in array because it alows random access. 
+
+Ans 2.4
+=============================================
+Insertions will be O(n).
+Second problem is that we may frequently need to copy 
+array to a larger array as it would run out of space quite 
+frequently. 
+
+Ans 2.5
+=============================================
+Insertion will be O(n) [The advantage would be in constaint
+factor only].
+Search will be again O(n)
