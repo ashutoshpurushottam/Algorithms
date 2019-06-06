@@ -1,0 +1,14 @@
+Ans 3.1
+========================================
+First greet function is called with input "Maggie".
+Before the function completes another function called 
+greet2 is called from inside the greet function with 
+input "Maggie". Greet function is removed from the top
+of the stock. Greet function is then completed.
+
+Ans 3.2
+========================================
+In such a scenario, the call stack will grow too big. 
+Ultimately, it should run out of memory. It leads to 
+StackOverflow error.
+
