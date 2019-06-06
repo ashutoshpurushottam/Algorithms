@@ -1,0 +1,51 @@
+Ans 4.1
+=====================
+def sum(arr):
+    if len(sum) == 0:
+        return 0
+    else:
+        arr[0] + sum(arr[1:])
+
+Ans 4.2
+=====================
+
+def count_items(arr):
+    if not arr:
+        return 0
+    else:
+        return 1 + count_items(arr[1:])
+
+Ans 4.3
+=====================
+
+def find_max(arr):
+    if not arr:
+        return None
+    if len(arr) == 1:
+        return arr[0]
+    max_e = arr[0]
+    max_r = find_max(arr[1:])
+    if max_r > max_e:
+        max_e = max_r
+    return max_e
+
+Ans 4.4
+=====================
+Yes it is a Divide and Conquer algorithm. Because in each 
+iteration we halve the size of input. 
+
+Ans 4.5
+=====================
+O(n): As each element will be touched once. 
+
+Ans 4.6
+=====================
+O(n): As each element will be touched once. 
+
+Ans 4.7
+=====================
+O(1): Access first element would take constant time. 
+
+Ans 4.8
+=====================
+O(n**2)
