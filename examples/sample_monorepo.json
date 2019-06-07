@@ -1,0 +1,36 @@
+{
+  "nodes": ["CL", "LH", "CC", "PD", "ID", "RD", "EL", "FC", "TE", "QP", "SW", "MP"],
+  "required_edges": [
+    ["CL", "LH"],
+    ["LH", "CC"],
+    ["CC", "PD"],
+    ["PD", "ID"],
+    ["ID", "RD"],
+    ["RD", "EL"],
+    ["RD", "FC"],
+    ["LH", "TE"],
+    ["TE", "QP"],
+    ["QP", "SW"],
+    ["TE", "MP"],
+    ["SW", "MP"]
+  ],
+  "optional_edges": [
+    ["CL", "EL"],
+    ["CC", "EL"],
+    ["FC", "EL"]
+  ],
+  "names": {
+    "CL": "CreateLead",
+    "LH": "LeadFunnelHost",
+    "CC": "CustomerConsent",
+    "PD": "PropertyDetails",
+    "ID": "IncomeDetails",
+    "RD": "ReviewDetails",
+    "EL": "Eligibility",
+    "FC": "FACompletion",
+    "TE": "TrackingEngine",
+    "QP": "QualityPipeline",
+    "SW": "SyncWorker",
+    "MP": "MapTab"
+  }
+}
