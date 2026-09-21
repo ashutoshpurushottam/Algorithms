@@ -1,18 +1,20 @@
 # Module Boot Order
 
-This project helps you decide the order in which modules should start in a monorepo style app.
+A small utility for computing a deterministic startup order for modules in a monorepo-style application.
 
-Mobile products often have many pieces that depend on each other. A lead funnel host may need create lead to finish first. Tracking may need the host. A map tab may need both tracking and a sync worker. If you start things in the wrong order you get flaky boots and hard to debug races.
+When multiple services or UI modules depend on one another, startup order matters. A host may need a dependency to be ready first, a tracking module may rely on the host, and a tab may depend on both. If you start modules in the wrong order, you can get flaky boots and race conditions that are hard to debug.
+
+This project models those dependencies as a graph and resolves a safe order using a stable topological sort.
 
 ## What it does
 
-You describe modules and required before links.
+- Accepts a list of module IDs and dependency edges
+- Treats each edge as a prerequisite: A before B
+- Ignores optional draft edges so future plans can stay in the same file without affecting live startup order
+- Produces a deterministic ordering using Kahn's algorithm
+- Breaks ties by choosing the lexicographically smallest module ID next
 
-An edge from A to B means A must start before B.
-
-You can also pass optional draft links. Those are ignored on purpose so you can keep future plans in the same file without changing the live order.
-
-The tool then prints one deterministic boot order using Kahn topological sort. When several modules are ready at once it always picks the lexicographically smallest module id next. That keeps the result stable across machines and CI runs.
+That final tie-break keeps the result stable across machines and CI runs.
 
 ## Install
 
@@ -33,38 +35,48 @@ order = compute_boot_order(nodes, required, optional)
 print(",".join(order))
 ```
 
+Example output:
+
+```text
+CL,LH,CC
+```
+
 ## CLI usage
 
 ```bash
 module-boot-order examples/sample_monorepo.json
 ```
 
-That prints a comma joined list with no spaces.
+This prints a comma-joined list with no spaces:
+
+```text
+CL,LH,CC,EL
+```
+
+To print one module per line:
 
 ```bash
 module-boot-order examples/sample_monorepo.json --one-per-line
 ```
 
-That prints one id per line.
-
 ## Graph file shape
 
-`examples/sample_monorepo.json` shows the expected JSON.
+The example file at `examples/sample_monorepo.json` shows the expected structure.
 
-- `nodes` is the full module id list
-- `required_edges` is the live prerequisite list
-- `optional_edges` is ignored by the sorter
-- `names` is optional human labels for reading
+- `nodes`: the complete list of module IDs
+- `required_edges`: the live prerequisite list
+- `optional_edges`: draft or non-blocking edges ignored by the sorter
+- `names`: optional human-readable labels for each module
+
+## Why the tie-break matters
+
+Without a consistent rule, two ready modules can appear in different orders depending on hash seed or map iteration. By always choosing the lexicographically smallest available module, the result becomes repeatable, easier to log, and safer for golden tests and rollout checklists.
 
 ## Tests
 
 ```bash
 pytest
 ```
-
-## Why the tie break matters
-
-Without a rule two ready modules can be ordered differently depending on hash seed or map iteration. A fixed lexicographic rule makes the order repeatable. That is useful for logs, rollout checklists, and golden tests.
 
 ## License
 
